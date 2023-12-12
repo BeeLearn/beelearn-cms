@@ -1,0 +1,138 @@
+@unocss preflights;
+@unocss default;
+@unocss;
+
+:root {
+    @apply accent-violet-700;
+}
+
+
+.dialog {
+    background: rgba(0, 0, 0, 0.5);
+    @apply fixed inset-0 flex;
+}
+
+.fullscreen-dialog {
+    @apply w-full h-full bg-white md:w-md md:rounded-none;
+}
+
+.alert-dialog {
+    @apply w-xs h-48 rounded-xl;
+}
+
+.modal {
+    @apply bg-white px-4 pb-4;
+}
+
+.bounce-in .modal {
+    @apply animate-bounce-in;
+}
+
+.bounce-out .modal {
+    @apply animate-bounce-out;
+}
+
+input {
+    @apply bg-transparent;
+}
+
+input:focus,
+textarea:focus {
+    @apply outline-none;
+}
+
+.input {
+    @apply flex space-x-2 items-center border-2 p-2;
+}
+
+
+.input:focus > input, .input:focus-within {
+    @apply border-violet-700 bg-violet-50 !text-violet-700;
+}
+
+.input {
+    @apply !text-stone-700;
+}
+
+.btn {
+    @apply flex space-x-2 items-center justify-center px-4 py-2 rounded;
+}
+
+.btn-primary {
+    @apply bg-violet-700 text-white;
+}
+
+.btn-success {
+    @apply bg-emerald text-white
+}
+
+.btn-danger {
+    @apply bg-red-500 text-white;
+}
+
+
+.card {
+    @apply bg-white p-2 rounded-lg shadow;
+}
+
+.card-fill {
+    @apply min-h-sm;
+}
+
+body {
+    scrollbar-width: 0;
+}
+
+.table-container {
+    @apply overflow-x-scroll bg-white rounded-xl;
+}
+
+.table-container thead {
+    @apply sticky top-0 bg-white text-stone-500;
+}
+
+th {
+    @apply p-2 text-center font-normal text-nowrap border-r-1 border-b-1;
+}
+
+td {
+    @apply p-2 text-center text-nowrap vertical-middle;
+}
+
+th,
+td {
+    @apply px-4;
+}
+
+::-webkit-scrollbar {
+    width: 0;
+}
+
+table {
+    @apply w-full;
+}
+
+
+.capitalize-first::first-letter {
+    text-transform: uppercase;
+}
+
+.s-8 {
+    @apply w-8 h-8;
+}
+
+.progress {
+    @apply border-3 rounded-full animate-spin;
+}
+
+.progress-primary {
+    @apply border-violet-700 border-t-white;
+}
+
+.toggle-knob::after {
+    @apply content-[''] absolute top-5 left-4 bg-red border-gray-300 border rounded-full h-5 w-5 transition-all border-gray-600;
+}
+
+.toggle {
+    @apply w-16 h-6 bg-gray-200 rounded-full peer peer-focus:ring-4 peer-focus:ring-violet-300 dark:peer-focus:ring-violet-800 dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[1.5em] after:left-3 after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all dark:border-gray-600 peer-checked:bg-violet-600;
+}
