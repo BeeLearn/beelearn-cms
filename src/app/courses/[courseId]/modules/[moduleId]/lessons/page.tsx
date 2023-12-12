@@ -7,7 +7,7 @@ import { useEffect, useRef, useState } from "react";
 import { MdOutlineTag, MdOutlineDelete } from "react-icons/md";
 
 import Api from "@/lib/api";
-import Lesson from "@/api/models/Lesson.model";
+import Lesson from "@/api/models/lesson.model";
 
 import useMounted from "@/composable/useMounted";
 import type { DialogElement } from "@/global";
@@ -41,7 +41,7 @@ export default function LessonsPage() {
                 module: params?.moduleId,
             }
         }]));
-    }, []);
+    });
 
     return (
         <>

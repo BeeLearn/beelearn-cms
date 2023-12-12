@@ -9,7 +9,7 @@ import { Field, useFormikContext } from "formik";
 import { join, PropsWithClassName } from "@/props";
 import { ResetElementProps } from "@/global";
 
-type InputProps<T extends HTMLElement> = {
+export type InputProps<T extends HTMLElement> = {
     name?: string,
     error?: string | null,
 } & PropsWithClassName & React.HTMLAttributes<T>;

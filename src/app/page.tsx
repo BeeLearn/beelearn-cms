@@ -2,10 +2,7 @@
 
 import MenuButton from "@/components/MenuButton";
 
-type LayoutHeaderProps = {
-};
-
-export function LayoutHeader({ }: LayoutHeaderProps) {
+function LayoutHeader() {
   return (
     <header className="flex space-x-2 items-center p-4">
       <MenuButton />

@@ -16,9 +16,7 @@ export default function LayoutHeader({ breadcrumb, onCreateModuleClick }: Layout
 
     return (
         <header className="flex flex-col space-y-2 p-4">
-            <div
-                className="flex space-x-4 items-center"
-                md="space-x-0">
+            <div className="flex space-x-4 items-center md:space-x-0">
                 <MenuButton />
                 <div className="flex-1">
                     <h1 className="text-xl font-extrabold">Modules</h1>

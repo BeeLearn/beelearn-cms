@@ -36,7 +36,7 @@ export default function QuestionsPage() {
 
     useEffect(() => {
         dispatch(getQuestions({}));
-    }, []);
+    });
 
     return (
         <>

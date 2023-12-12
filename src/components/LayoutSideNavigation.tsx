@@ -47,9 +47,7 @@ function NavigationRouteItem({ name, icon, path, className, activeClassName, sel
             href={path}
             className={join("flex items-center space-x-2 p-4", className, active ? activeClass : inActiveClass)}>
             {active ? selectedIcon ?? icon : icon}
-            <p
-                md="hidden"
-                lg="block">{name}</p>
+            <p className="md:hidden lg:block">{name}</p>
         </Link>
     );
 }
@@ -84,29 +82,19 @@ export default function LayoutSideNavigation() {
     return (
         <nav
             id="side-navigation"
-            className="hidden fixed inset-0 bg-[rgba(0,0,0,0.5)] border-r z-10"
-            md="static flex flex-col w-auto bg-none"
-            lg="w-1/5"
-            xl="w-1/6">
+            className="hidden fixed inset-0 bg-[rgba(0,0,0,0.5)] border-r z-10 md:static md:flex md:flex-col md:w-auto md:bg-none lg:w-1/5 xl:w-1/6">
             <div
                 id="side-navigation-container"
-                className="flex-1 w-4/5 h-full flex flex-col space-y-4 bg-white"
-                md="w-auto"
-                at-md="px-2"
-                lt-md="animate-slide-in-left animate-duration-200">
-                <div
-                    className="flex p-4"
-                    md="hidden">
+                className="flex-1 w-4/5 h-full flex flex-col space-y-4 bg-white md:w-auto at-md:px-2 lt-md:animate-slide-in-left lt-md:animate-duration-200">
+                <div className="flex p-4 md:hidden">
                     <MdClose
                         className="text-2xl cursor-pointer text-stone-700"
                         onClick={hideSideNavigation} />
                 </div>
-                <AccountPicker 
+                <AccountPicker
                     className="mx-2"
                     user={userState.user!} />
-                <div
-                    className="flex-1 flex flex-col pr-4"
-                    at-md="items-center p-0">
+                <div className="flex-1 flex flex-col pr-4 at-md:items-center at-md:p-0">
                     {
                         navigationRoutes.filter(route => route.visibleWhen!(userState.user!)).map((item) => (
                             <NavigationRouteItem
