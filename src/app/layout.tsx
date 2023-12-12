@@ -1,3 +1,5 @@
+"use client";
+
 import '@unocss/reset/tailwind.css';
 import '@unocss/reset/sanitize/assets.css';
 import '@unocss/reset/sanitize/sanitize.css';

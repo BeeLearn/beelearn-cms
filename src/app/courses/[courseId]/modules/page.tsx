@@ -1,5 +1,4 @@
 "use client";
-import { useParams } from "next/navigation";
 
 import { toast } from "react-toastify";
 import { createPortal } from "react-dom";
@@ -23,9 +22,8 @@ import LayoutHeader from "./components/LayoutHeader";
 import ConfirmDeleteDialog from "@/components/ConfirmDeleteDialog";
 
 
-export default function ModulesPage() {
+export default function ModulesPage({ params }: { params: { courseId: number } }) {
     const mounted = useMounted();
-    const params = useParams();
     const confirmDeleteDialogRef = useRef<DialogElement>(null);
     const createNewModuleDialogRef = useRef<DialogElement>(null);
 

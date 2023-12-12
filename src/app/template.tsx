@@ -1,3 +1,4 @@
+"use client";
 import LayoutSideNavigation from "@/components/LayoutSideNavigation";
 
 export default function RootTemplate({ children }: React.PropsWithChildren) {

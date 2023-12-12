@@ -1,5 +1,4 @@
 "use client";
-import { useParams } from "next/navigation";
 
 import { toast } from "react-toastify";
 import { createPortal } from "react-dom";
@@ -23,9 +22,8 @@ import LessonList from "./components/LessonList";
 import LayoutHeader from "./components/LayoutHeader";
 
 
-export default function LessonsPage() {
+export default function LessonsPage({ params }: { params: { moduleId: number } }) {
     const mounted = useMounted();
-    const params = useParams();
     const confirmDeleteDialogRef = useRef<DialogElement>(null);
     const createNewLessonDialogRef = useRef<DialogElement>(null);
 
