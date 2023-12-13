@@ -14,15 +14,15 @@ import useMounted from "@/composable/useMounted";
 import { courseActions, courseSelector, getCourses } from "@/features/courseSlice";
 
 import type { DialogElement } from "@/global";
+import { useAppDispatch, useAppSelector } from "@/hooks";
 
 import Search from "@/components/Search";
 import ListAction from "@/components/ListAction";
+import CourseList from "@/components/CourseList";
+import CourseLayoutHeader from "@/components/CourseLayoutHeader";
 import ConfirmDeleteDialog from "@/components/ConfirmDeleteDialog";
 import CreateNewCourseDialog from "@/components/CreateNewCourseDialog";
 
-import CourseList from "./components/CourseList";
-import LayoutHeader from "./components/LayoutHeader";
-import { useAppDispatch, useAppSelector } from "../hooks";
 
 export default function CoursePage() {
     const mounted = useMounted();
@@ -41,7 +41,7 @@ export default function CoursePage() {
 
     return (
         <>
-            <LayoutHeader
+            <CourseLayoutHeader
                 onCreateClick={() => createNewCourseDialogRef.current!.showModal()} />
             <section className="flex-1 flex flex-col space-y-4 px-2">
                 <div className="flex space-x-2">

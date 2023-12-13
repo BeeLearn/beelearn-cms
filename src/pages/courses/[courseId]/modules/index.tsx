@@ -1,5 +1,4 @@
 "use client";
-import { useParams } from "next/navigation";
 
 import { toast } from "react-toastify";
 import { createPortal } from "react-dom";
@@ -7,47 +6,44 @@ import { useEffect, useRef, useState } from "react";
 import { MdOutlineTag, MdOutlineDelete } from "react-icons/md";
 
 import Api from "@/lib/api";
-import Lesson from "@/api/models/lesson.model";
+import Module from "@/api/models/module.model";
 
-import useMounted from "@/composable/useMounted";
 import type { DialogElement } from "@/global";
-import { useAppDispatch, useAppSelector } from "@/app/hooks";
-import { getLessons, lessonActions, lessonSelector } from "@/features/lessonSlice";
+import useMounted from "@/composable/useMounted";
+import { useAppDispatch, useAppSelector } from "@/hooks";
+import { getModules, moduleActions, moduleSelector } from "@/features/moduleSlice";
 
 import Search from "@/components/Search";
 import ListAction from "@/components/ListAction";
+import ModuleList from "@/components/ModuleList";
+import ModuleLayoutHeader from "@/components/ModuleLayoutHeader";
 import ConfirmDeleteDialog from "@/components/ConfirmDeleteDialog";
-import CreateNewLessonDialog from "@/components/CreateNewLessonDialog";
+import CreateNewModuleDialog from "@/components/CreateNewModuleDialog";
 
-import LessonList from "./components/LessonList";
-import LayoutHeader from "./components/LayoutHeader";
-
-
-export default function LessonsPage() {
+export default function ModulesPage({ params }: { params: { courseId: number } }) {
     const mounted = useMounted();
-    const params = useParams();
     const confirmDeleteDialogRef = useRef<DialogElement>(null);
-    const createNewLessonDialogRef = useRef<DialogElement>(null);
+    const createNewModuleDialogRef = useRef<DialogElement>(null);
 
     const dispatch = useAppDispatch();
-    const state = useAppSelector((store) => store.lesson);
-    const lessons = lessonSelector.selectAll(state);
+    const state = useAppSelector((store) => store.module);
+    const modules = moduleSelector.selectAll(state);
 
-    const [checkedLessons, setCheckedLessons] = useState<Lesson[]>([]);
+    const [checkedModules, setCheckedModules] = useState<Module[]>([]);
 
     useEffect(() => {
-        dispatch(getLessons([{
+        dispatch(getModules([{
             query: {
-                module: params?.moduleId,
+                course: params?.courseId,
             }
         }]));
-    });
+    }, []);
 
     return (
         <>
-            <LayoutHeader
+            <ModuleLayoutHeader
                 breadcrumb={state.breadcrumb}
-                onCreateLessonClick={() => createNewLessonDialogRef.current!.showModal()} />
+                onCreateModuleClick={() => createNewModuleDialogRef.current!.showModal()} />
             <section className="flex-1 flex flex-col space-y-4 px-2">
                 <div className="flex space-x-2">
                     <div className="flex-1 flex">
@@ -55,12 +51,12 @@ export default function LessonsPage() {
                             placeholder="Search by name or description"
                             onSearch={
                                 async (value) => {
-                                    await dispatch(getLessons([{ query: { search: value } }]));
+                                    await dispatch(getModules([{ query: { search: value } }]));
                                 }
                             } />
                     </div>
                     {
-                        checkedLessons.length > 0 && <ListAction actions={
+                        checkedModules.length > 0 && <ListAction actions={
                             [
                                 {
                                     text: "Group",
@@ -81,52 +77,52 @@ export default function LessonsPage() {
                     }
                 </div>
 
-                <LessonList
+                <ModuleList
                     className="flex-1"
-                    lessons={lessons}
+                    modules={modules}
                     loadingState={state.state}
-                    onLessonChecked={setCheckedLessons}
+                    onModuleChecked={setCheckedModules}
                     loadMore={state.next ?
                         async () => {
-                            await dispatch(getLessons([{ url: state.next!, }]));
+                            await dispatch(getModules([{ url: state.next!, }]));
                         }
                         : null
                     }
-                    onEdit={async (Lesson, data) => {
-                        const response = await Api.instance.lessonController.update({
-                            path: Lesson.id,
+                    onEdit={async (module, data) => {
+                        const response = await Api.instance.moduleController.update({
+                            path: module.id,
                             data,
                         });
 
-                        const newLesson = response.data;
-                        dispatch(lessonActions.updateOne({
-                            id: newLesson.id,
-                            changes: newLesson,
+                        const newModule = response.data;
+                        dispatch(moduleActions.updateOne({
+                            id: newModule.id,
+                            changes: newModule,
                         }));
 
-                        return newLesson;
+                        return newModule;
                     }}
-                    onDelete={async (Lesson) => {
-                        await Api.instance.lessonController.remove({
-                            path: Lesson.id,
+                    onDelete={async (module) => {
+                        await Api.instance.moduleController.remove({
+                            path: module.id,
                         });
 
-                        dispatch(lessonActions.removeOne(Lesson.id));
+                        dispatch(moduleActions.removeOne(module.id));
                     }} />
             </section>
             {
                 mounted && createPortal(
-                    <CreateNewLessonDialog
-                        ref={createNewLessonDialogRef}
+                    <CreateNewModuleDialog
+                        ref={createNewModuleDialogRef}
                         onSave={async (data) => {
-                            const response = await Api.instance.lessonController.create({
+                            const response = await Api.instance.moduleController.create({
                                 data: {
                                     ...data,
-                                    module: params?.moduleId,
+                                    course: params?.courseId,
                                 },
                             });
 
-                            dispatch(lessonActions.addOne(response.data));
+                            dispatch(moduleActions.addOne(response.data));
                         }} />,
                     document.body,
                 )
@@ -140,27 +136,27 @@ export default function LessonsPage() {
                             confirmDeleteDialogRef.current!.close();
                             await toast.promise(
                                 async () => {
-                                    const ids = checkedLessons.map((course) => course.id);
+                                    const ids = checkedModules.map((course) => course.id);
 
-                                    await Api.instance.lessonController.remove({
+                                    await Api.instance.moduleController.remove({
                                         path: "bulk-delete",
                                         query: {
                                             ids: ids.join(","),
                                         }
                                     });
 
-                                    dispatch(lessonActions.removeMany(ids));
-                                    setCheckedLessons([]);
+                                    dispatch(moduleActions.removeMany(ids));
+                                    setCheckedModules([]);
                                 },
                                 {
                                     pending: "Deleting, please wait a moment...",
-                                    success: "Lesson deleted successfully.",
+                                    success: "Modules deleted successfully.",
                                     error: "An error occur, Try again!.",
                                 }
                             );
                         }}>
-                        <p className="text-lg font-medium">Do you want to delete lesson?</p>
-                        <p className="mt-1 text-sm text-stone-700">This action is irreversible when initiated. All topics under this lesson will be deleted.</p>
+                        <p className="text-lg font-medium">Do you want to delete Modules?</p>
+                        <p className="mt-1 text-sm text-stone-700">This action is irreversible when initiated. All lessons and topics under this modules will be deleted.</p>
                     </ConfirmDeleteDialog>,
                     document.body,
                 )

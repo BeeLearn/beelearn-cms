@@ -8,19 +8,19 @@ import Api from "@/lib/api";
 import Question from "@/api/models/question.model";
 
 import { DialogElement } from "@/global";
+import { useAppDispatch, useAppSelector } from "@/hooks";
+
 import useMounted from "@/composable/useMounted";
 import { deleteQuestions, getQuestions, listQuestions, questionActions, questionSelector, transformPagination } from "@/features/questionSlice";
 
 
 import Search from "@/components/Search";
 import ListAction from "@/components/ListAction";
-import type { Choice } from "@/components/QuestionChoice";
 import ConfirmDeleteDialog from "@/components/ConfirmDeleteDialog";
 import CreateNewQuestionDialog from "@/components/CreateNewQuestionDialog";
 
-import { useAppDispatch, useAppSelector } from "../hooks";
-import LayoutHeader from "./components/LayoutHeader";
-import QuestionList from "./components/QuestionList";
+import QuestionList from "@/components/QuestionList";
+import QuestionLayoutHeader from "@/components/QuestionLayoutHeader";
 
 
 export default function QuestionsPage() {
@@ -36,11 +36,11 @@ export default function QuestionsPage() {
 
     useEffect(() => {
         dispatch(getQuestions({}));
-    });
+    }, []);
 
     return (
         <>
-            <LayoutHeader
+            <QuestionLayoutHeader
                 onCreateQuestionClick={() => createNewQuestionDialogRef.current!.showModal()} />
             <section className="flex-1 flex flex-col space-y-4 px-4">
                 <div className="flex space-x-2">

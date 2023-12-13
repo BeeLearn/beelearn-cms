@@ -7,21 +7,18 @@ import {
     MdClose,
     MdOutlineLibraryBooks,
     MdLibraryBooks,
-    MdOutlineSettings,
     MdOutlineCategory,
-    MdOutlineNotifications,
-    MdSettings,
     MdCategory,
-    MdNotifications,
     MdOutlineQuestionMark,
     MdQuestionMark,
 } from "react-icons/md";
 
+import { useAppSelector } from "@/hooks";
+import User from "@/api/models/user.model";
 import { join, PropsWithClassName } from "@/props";
+
 import AccountPicker from "@/components/AccountPicker";
 import { hideSideNavigation } from "@/modules/LayoutSideNavigation.module";
-import { useAppSelector } from "@/app/hooks";
-import User from "@/api/models/user.model";
 
 
 interface NavRouteItemProps {
