@@ -1,10 +1,24 @@
+import { Provider } from "react-redux";
+
+import store from "@/store";
+import { getCurrentUser } from "@/features/userSlice";
+import { useAppDispatch, useAppSelector } from "@/hooks";
 import { useEffect } from "react";
 
-import { getCurrentUser } from "@/features/userSlice";
 
-import { useAppDispatch, useAppSelector } from "./hooks";
+export default function StoreProvider({ children }: React.PropsWithChildren) {
 
-export default function FetchContext({ children }: React.PropsWithChildren) {
+    return (
+        <Provider store={store}>
+            <Fetch>
+                {children}
+            </Fetch>
+        </Provider>
+    );
+}
+
+
+function Fetch({ children }: React.PropsWithChildren) {
     const dispatch = useAppDispatch();
     const state = useAppSelector(state => state.user);
 

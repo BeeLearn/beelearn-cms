@@ -1,5 +1,15 @@
 {
   "projects": {
     "default": "bee-learn"
-  }
+  },
+  "targets": {
+    "bee-learn": {
+      "hosting": {
+        "content": [
+          "beelearn-cms"
+        ]
+      }
+    }
+  },
+  "etags": {}
 }

@@ -20,7 +20,7 @@ export default class ApiImpl {
 
   constructor(private accessToken: string) {
     this.axios = axios.create({
-      baseURL: process.env.NEXT_API_BASE_URL,
+      baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,
       headers: {
         Authorization: "Token " + this.accessToken,
       },

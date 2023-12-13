@@ -1,7 +1,7 @@
-//import dynamic from "next/dynamic";
+import dynamic from "next/dynamic";
 import { ChangeEvent, forwardRef, useState } from "react";
 
-import MDEditor, { ContextStore, RefMDEditor } from "@uiw/react-md-editor";
+import type { ContextStore, RefMDEditor } from "@uiw/react-md-editor";
 
 import { PropsWithClassName } from "@/props";
 
@@ -14,10 +14,10 @@ type MarkdownEditorProps = {
 } & PropsWithClassName;
 
 
-// const MDEditor = dynamic(
-//     () => import("@uiw/react-md-editor"),
-//     { ssr: false }
-//   );
+const MDEditor = dynamic(
+    () => import("@uiw/react-md-editor"),
+    { ssr: false }
+);
 
 export default forwardRef<typeof MDEditor, MarkdownEditorProps>(
     function MarkdownEditor({ className, error, value: defaultValue, onChange }, ref) {

@@ -8,19 +8,17 @@ import { MdOutlineTag, MdOutlineDelete } from "react-icons/md";
 import Api from "@/lib/api";
 import Lesson from "@/api/models/lesson.model";
 
-import useMounted from "@/composable/useMounted";
 import type { DialogElement } from "@/global";
-import { useAppDispatch, useAppSelector } from "@/app/hooks";
+import useMounted from "@/composable/useMounted";
+import { useAppDispatch, useAppSelector } from "@/hooks";
 import { getLessons, lessonActions, lessonSelector } from "@/features/lessonSlice";
 
 import Search from "@/components/Search";
 import ListAction from "@/components/ListAction";
+import LessonList from "@/components/LessonList";
+import LessonLayoutHeader from "@/components/LessonLayoutHeader";
 import ConfirmDeleteDialog from "@/components/ConfirmDeleteDialog";
 import CreateNewLessonDialog from "@/components/CreateNewLessonDialog";
-
-import LessonList from "./components/LessonList";
-import LayoutHeader from "./components/LayoutHeader";
-
 
 export default function LessonsPage({ params }: { params: { moduleId: number } }) {
     const mounted = useMounted();
@@ -43,7 +41,7 @@ export default function LessonsPage({ params }: { params: { moduleId: number } }
 
     return (
         <>
-            <LayoutHeader
+            <LessonLayoutHeader
                 breadcrumb={state.breadcrumb}
                 onCreateLessonClick={() => createNewLessonDialogRef.current!.showModal()} />
             <section className="flex-1 flex flex-col space-y-4 px-2">

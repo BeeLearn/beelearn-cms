@@ -37,7 +37,6 @@ export function diffObject<T extends Record<string, any>>(
       if (result) diff[key] = result;
     } else if (typeof value === "object") {
       const result = diffObject(value, newValue);
-      console.log(result);
       if (Object.keys(result).length > 0) diff[key] = result;
     } else if (newValue !== value) {
       diff[key] = newValue;
