@@ -1,3 +1,4 @@
+import 'uno.css';
 import '@unocss/reset/tailwind.css';
 import '@unocss/reset/sanitize/assets.css';
 import '@unocss/reset/sanitize/sanitize.css';
@@ -9,12 +10,12 @@ import type { AppProps } from "next/app";
 import { Noto_Sans } from 'next/font/google';
 
 import { useEffect } from 'react';
-import { useCookies } from 'react-cookie';
 
+import Api from '@/lib/api';
 import { join } from "@/props";
 import LayoutSideNavigation from "@/components/LayoutSideNavigation";
 
-import '@/assets/global.css';
+import '@/global.css';
 import Provider from '@/Provider';
 
 const defaultFont = Noto_Sans({
@@ -24,13 +25,9 @@ const defaultFont = Noto_Sans({
 
 
 export default function App({ Component, ...pageProps }: AppProps) {
-    const [cookies] = useCookies(['accessToken']);
 
     useEffect(() => {
-        const accessToken = cookies.accessToken;
-        // const accessToken = "32445674071e3c178df8b55fd22f9c45c7bdf171";
-
-        if (!accessToken)
+        if (!Api.accessToken)
             window.location.replace(
                 process.env.NEXT_PUBLIC_AUTH_BASE_URL +
                 "?redirect=" + window.location.href

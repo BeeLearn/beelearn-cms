@@ -6,7 +6,8 @@ export default class Api {
 
   static get accessToken() {
     const cookie = new Cookies(["accessToken"]);
-    return cookie.get("accessToken");
+    // return cookie.get("accessToken");
+    return "d7bff2cc72760e5690eef3a1ccc05ba57db70be6";
   }
 
   static get instance(): ApiImpl {
