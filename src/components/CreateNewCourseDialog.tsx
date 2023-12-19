@@ -65,8 +65,8 @@ export default forwardRef<Partial<DialogElement>, CreateNewCourseDialogProps>(
                     onSubmit={async (values, { setSubmitting, setFieldError, resetForm }) => {
                         try {
                             await onSave(values);
-                            resetForm();
                             toast.success("New course created successfully.");
+                            resetForm();
                         } catch (error) {
                             if (isAxiosError(error) && error.response?.status === HttpStatusCode.BadRequest) {
                                 const response = error.response;

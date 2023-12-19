@@ -10,6 +10,7 @@ import type { AppProps } from "next/app";
 import { Noto_Sans } from 'next/font/google';
 
 import { useEffect } from 'react';
+import { ToastContainer } from 'react-toastify';
 
 import Api from '@/lib/api';
 import { join } from "@/props";
@@ -41,6 +42,9 @@ export default function App({ Component, ...pageProps }: AppProps) {
                     <LayoutSideNavigation />
                     <section className="flex-1 flex flex-col space-y-4 bg-slate-100 overflow-auto">
                         <Component {...pageProps} />
+                        <ToastContainer
+                            position="top-left"
+                            className="z-20" />
                     </section>
                 </main>
             </Provider>

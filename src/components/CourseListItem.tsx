@@ -1,5 +1,7 @@
 "use client";
 
+import moment from "moment";
+
 import Image from "next/image";
 import Link from "next/link";
 
@@ -52,8 +54,8 @@ export default function CourseListItem({ course, isChecked, onChecked, onEditCli
                         : <MdCancel className="text-red-500" />
                 }
             </td>
-            <td>{course.created_at}</td>
-            <td>{course.updated_at}</td>
+            <td>{moment(course.created_at).fromNow()}</td>
+            <td>{moment(course.updated_at).fromNow()}</td>
             <td>
                 <ListAction
                     actionClass="btn"
@@ -70,11 +72,7 @@ export default function CourseListItem({ course, isChecked, onChecked, onEditCli
                             text: "Delete",
                             icon: <MdDelete className="text-xl" />,
                             onSelect() {
-                                toast.promise(() => onDeleteClick(course), {
-                                    pending: "Deleting course",
-                                    success: "Course deleted",
-                                    error: "An error occur, try again!",
-                                });
+                                onDeleteClick(course);
                             },
                         },
 

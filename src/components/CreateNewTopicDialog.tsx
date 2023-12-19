@@ -92,14 +92,7 @@ export default forwardRef<Partial<DialogElement>, CreateNewTopicDialogProps>(
                                 setSubmitting(false);
                             }
                         }
-                    }
-                    onReset={() =>{
-                        const editors = document.querySelectorAll<HTMLTextAreaElement>(".w-md-editor-text-input");
-                        for(const editor of editors){
-                            editor.value = ""
-                            editor.innerText = ""
-                        }
-                    }}>
+                    }>
                     {
                         ({ values, errors, touched, isSubmitting, setFieldValue }) => (
                             <Form className="flex-1 flex flex-col space-y-4">
@@ -112,7 +105,9 @@ export default forwardRef<Partial<DialogElement>, CreateNewTopicDialogProps>(
                                         name="description"
                                         placeholder="Description"
                                         error={touched.description ? errors.description : null} />
+                                        {values.content}
                                     <MarkdownEditor
+                                        value={values.content}
                                         onChange={
                                             (value) => setFieldValue("content", value)
                                         }

@@ -13,7 +13,7 @@
 }
 
 .alert-dialog {
-    @apply w-xs h-48 rounded-xl;
+    @apply w-xs min-h-48 rounded-xl;
 }
 
 .modal {
@@ -43,7 +43,7 @@ textarea:focus {
 
 
 .input:focus > input, .input:focus-within {
-    @apply border-violet-700 bg-violet-50 !text-violet-700;
+    @apply border-violet-700 bg-violet-50 text-violet-700;
 }
 
 .input {
@@ -132,3 +132,4 @@ table {
 .toggle {
     @apply w-16 h-6 bg-gray-200 rounded-full peer peer-focus:ring-4 peer-focus:ring-violet-300 dark:peer-focus:ring-violet-800 dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[1.5em] after:left-3 after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all dark:border-gray-600 peer-checked:bg-violet-600;
 }
+

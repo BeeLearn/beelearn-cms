@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
 import { Html, Head, Main, NextScript } from 'next/document';
 
-import { ToastContainer } from 'react-toastify';
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -14,9 +13,6 @@ export default function Document() {
       <Head />
       <body>
         <Main />
-        <ToastContainer
-          position="top-left"
-          className="z-100" />
         <NextScript />
       </body>
     </Html>

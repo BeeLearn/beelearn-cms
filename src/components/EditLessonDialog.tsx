@@ -4,30 +4,28 @@ import React, { useState } from "react";
 import { MdClose } from "react-icons/md";
 import { toast } from "react-toastify";
 
-import { Formik, Form } from "formik";
 import { boolean, object, string } from "yup";
+import { Formik, Form } from "formik";
 
-import { DialogElement } from "@/global";
-import { PropsWithClassName } from "@/props";
+import type { DialogElement } from "@/global";
+import { diffObject } from "@/lib/arrayHelper";
+import Lesson from "@/api/models/lesson.model";
 
 import Dialog from "@/widgets/Dialog";
 import { TextInput, TextAreaInput, InputToggle } from "@/widgets/TextInput";
 
 import FormSubmitButton from "./FormSubmitButton";
-import Module from "@/api/models/module.model";
-import { diffObject } from "@/lib/arrayHelper";
 
-type CreateNewModuleDialogProps = {
-  module: Module;
-  onSave: (module: Module, value: Partial<Module>) => Promise<Module>;
-  onDelete: (module: Module) => Promise<void>;
-} & PropsWithClassName &
-  React.HTMLAttributes<HTMLDivElement>;
+type CreateNewLessonDialogProps = {
+  lesson: Lesson;
+  onDelete: (lesson: Lesson) => Promise<void>;
+  onSave: (lesson: Lesson, value: Partial<Lesson>) => Promise<Lesson>;
+};
 
 export default React.forwardRef<
   Partial<DialogElement>,
-  CreateNewModuleDialogProps
->(function CreateNewModuleDialog({ module, onSave, onDelete }, ref) {
+  CreateNewLessonDialogProps
+>(function CreateNewLessonDialog({ lesson, onSave, onDelete }, ref) {
   const dialogRef = React.useRef<DialogElement>(null);
   const [isDeleting, setIsDeleting] = useState(false);
 
@@ -53,24 +51,24 @@ export default React.forwardRef<
           className="text-xl text-stone-700 cursor-pointer"
           onClick={() => dialogRef.current!.close()}
         />
-        <h1 className="flex-1 text-xl font-extrabold">Edit Module</h1>
+        <h1 className="flex-1 text-xl font-extrabold">Edit Lesson</h1>
       </header>
       <Formik
         validationSchema={object().shape({
+          is_visible: boolean().required(),
           name: string().required(),
           description: string().notRequired(),
-          is_visible: boolean().required(),
         })}
-        initialValues={module}
+        initialValues={lesson}
         onSubmit={async (
           values,
           { setSubmitting, setFieldError, resetForm }
         ) => {
           try {
-            const newModule = await onSave(values, diffObject(module, values));
+            const newLesson = await onSave(lesson, diffObject(lesson, values));
 
-            resetForm({ values: newModule });
-            toast.success("Module edited successfully!");
+            resetForm({ values: newLesson });
+            toast.success("Lesson edited successfully.");
           } catch (error) {
             if (
               isAxiosError(error) &&
@@ -82,7 +80,7 @@ export default React.forwardRef<
               for (let [field, value] of Object.entries(data)) {
                 setFieldError(
                   field,
-                  Array.isArray(value) ? value.join(". ") : (value as string)
+                  Array.isArray(value) ? value.join(".") : (value as string)
                 );
               }
             }
@@ -98,34 +96,34 @@ export default React.forwardRef<
             <div className="flex-1 flex flex-col space-y-4">
               <TextInput
                 name="name"
-                placeholder="Name"
-                error={touched.name ? errors.name : null}
+                placeholder="Lesson name"
+                error={errors.name}
               />
               <TextAreaInput
                 name="description"
                 placeholder="Description"
-                error={touched.description ? errors.description : null}
+                error={errors.description}
               />
               <InputToggle
                 name="is_visible"
-                placeholder="Show lessons & topics under module"
-                sub_placeholder="Enlisted module to our catalogue and will be visible to all learners."
-                error={touched.is_visible ? errors.is_visible : null}
+                placeholder="Show topics to learners"
+                sub_placeholder="Lesson would be enlisted to our catalogue and will be visible to all learners."
+                error={errors.is_visible}
               />
             </div>
-            <div className="flex space-x-4">
+            <div className="flex space-x-2">
               <FormSubmitButton
                 type="button"
                 text="Delete"
                 className="flex-1 border-2 text-red-500"
                 submitting={isDeleting}
                 onClick={async () => {
-                  await onDelete(module);
+                  await onDelete(lesson);
                 }}
               />
               <FormSubmitButton
                 text="Save"
-                className="flex-1 btn btn-primary"
+                className="flex-1 btn-primary"
                 submitting={isSubmitting}
               />
             </div>
