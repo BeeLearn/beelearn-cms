@@ -70,7 +70,7 @@ export const InputToggle = React.forwardRef<HTMLInputElement, InputToggleProps>(
     function InputToggle({ placeholder, sub_placeholder, ...props }, ref) {
         return (
             <label
-                className="relative inline-flex items-center justify-center space-x-2 cursor-pointer">
+                className="relative inline-flex items-centr justifcenter space-x-2 cursor-pointer">
                 <Field
                     ref={ref}
                     {...props}
@@ -83,7 +83,7 @@ export const InputToggle = React.forwardRef<HTMLInputElement, InputToggleProps>(
                 </div>
             </label>
         );
-    });
+});
 
 
 type FileInputProps = {

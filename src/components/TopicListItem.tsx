@@ -29,7 +29,6 @@ export default function TopicListItem({
   onEditClick,
   onDeleteClick,
 }: topicListItemProps) {
-  const topicLink = `topics/${topic.id}/topics/`;
 
   return (
     <tr>
@@ -45,7 +44,7 @@ export default function TopicListItem({
         />
       </td>
       <td className="text-violet-700">
-        <Link href={topicLink}>{topic.title}</Link>
+        <p>{topic.title}</p>
       </td>
       <td className="text-xl">
         {topic.is_visible ? (
