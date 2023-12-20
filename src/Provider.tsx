@@ -36,9 +36,9 @@ function AuthGuard({ children }: React.PropsWithChildren) {
   const state = useAppSelector((state) => state.user);
 
   useEffect(() => {
-    if (!state.user!.is_staff || !state.user!.is_superuser)
-      window.location.replace(process.env.NEXT_PUBLIC_BASE_URL as string);
-  }, []);
+    if (state.user && !state.user.is_staff)
+      return window.location.replace(process.env.NEXT_PUBLIC_BASE_URL as string);
+  }, [state]);
 
   return children;
 }
