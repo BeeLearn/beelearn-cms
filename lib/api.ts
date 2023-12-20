@@ -9,7 +9,7 @@ export default class Api {
     // console.log(process.env.NEXT_PUBLIC_ENVIRONMENT)
     // if(process.env.NEXT_PUBLIC_ENVIRONMENT && process.env.NEXT_PUBLIC_ENVIRONMENT==="test")
     // return "d7bff2cc72760e5690eef3a1ccc05ba57db70be6";
-    return cookie;
+    return cookie.accessToken;
   }
 
   static get instance(): ApiImpl {
